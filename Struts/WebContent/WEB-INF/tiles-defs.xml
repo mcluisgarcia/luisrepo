@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+ "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+ "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+ 
+<tiles-definitions>
+	<!-- Base Tiles Definition -->
+	<definition name="base.definition" path="/jsp/siteLayout.jsp">
+		<put name="header" value="/jsp/header.jsp" />
+		<put name="navigation" value="/navigation.do" /><!-- Sirve para -->
+		<put name="footer" value="/jsp/footer.jsp" />
+	</definition>
+	
+	<!-- Tiles Definition of welcome page -->
+	<definition name="page.welcome" extends="base.definition"><!-- Complementa la parte de arriba base.definition-->
+		<put name="title" value="Welcome page" />
+		<put name="body" value="/jsp/index.jsp" />
+	</definition>
+	
+	<!-- Tiles Definition of BookList -->
+	<definition name="page.booklist" extends="base.definition">
+		<put name="title" value="Book list page" />
+		<put name="body" value="/jsp/bookList.jsp" />
+	</definition>
+	
+	<!-- Tiles Definition of userform -->
+	<definition name="page.userForm" extends="base.definition">
+		<put name="title" value="User form" />
+		<put name="body" value="../userRegistrationDyna.jsp" />
+	</definition>
+</tiles-definitions>

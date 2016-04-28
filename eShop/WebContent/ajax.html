@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+</head>
+<body>
+<script type='text/javascript' src='/eShop/dwr/engine.js'></script>
+ <script type='text/javascript' src='/eShop/dwr/interface/Demo.js'></script>
+  
+  
+  <script type='text/javascript' src='/eShop/dwr/engine.js'></script>
+  <script type='text/javascript' src='/eShop/dwr/interface/People.js'></script>
+  
+  <script type='text/javascript' src='/eShop/dwr/engine.js'></script>
+  <script type='text/javascript' src='/eShop/dwr/interface/Countries.js'></script>
+  
+  <script type='text/javascript' src='/eShop/dwr/util.js'></script>
+  
+<script type='text/javascript'>
+	var saluda = function(){
+		var nombre = dwr.util.getValue("minombre");
+		Demo.imprimeHola(nombre, function(data){
+			dwr.util.setValue("saludo", data);
+		});
+	}
+	
+	
+	function init(){
+		
+		dwr.util.useLoadingMessage();
+		Tabs.init('tabList', 'tabContents');
+		dwr.util.setValue("filtro", "");
+		addSingleRow("peopleBody", "Please enter a search filter");
+	}
+	
+	
+	var paisesCache=[];
+	var lastFilter = "";
+	
+	var fillTable = function(paises){
+
+		    var filter = dwr.util.getValue("filtro");
+			var pattern = new RegExp("(" + filter + ")", "i");
+			var filtered = [];
+			console.log(paises);
+			for(i=0; i<paises.length; i++ ){
+				if (pattern.test( paises[i].countryName )){
+					filtered.push(paises[i]);
+				}
+			}
+			
+			dwr.util.removeAllRows("peopleBody");
+			if(filtered.length == 0){
+				addSingleRow("peopleBody", "No matches");
+			}else{
+				dwr.util.addRows("peopleBody", filtered, [ function(paises){
+					return paises.countryName.replace(pattern, "<span class='highlight'>$1</span>");},
+				    function(paises){return paises.countryId; },
+				    function(paises){return paises.regionId}
+				    ], {escapeHtml:false});
+			}
+			
+			paisesCache = paises;
+	}
+	
+	var filterChanged = function(){
+		var filter = dwr.util.getValue("filtro");
+		if(filter.length == 0){
+			dwr.util.removeAllRows("peopleBody");
+			addSingleRow("peopleBody", "please enter a search filter");
+		}else{
+			if(filter.charAt(0) == lastFilter.charAt(0) ){
+				fillTable(paisesCache);
+			}else{
+				Countries.getMatchFromLargeCrowd(filter.charAt(0), fillTable );
+			}
+		}
+		lastFilter = filter;
+	}
+	
+	function addSingleRow(id, message){
+		dwr.util.addRows(id, [1], [
+		      function(data){return message;}
+		      ], {
+			cellCreator:function(){
+				var td = document.createElement("td");
+				td.setAttribute("colspan", 3);
+				return td;
+			}
+			
+		});
+	}
+	
+	
+	/*
+	function init(){
+		
+		dwr.util.useLoadingMessage();
+		Tabs.init('tabList', 'tabContents');
+		dwr.util.setValue("filtro", "");
+		addSingleRow("peopleBody", "Please enter a search filter");
+	}
+	
+	
+	var peopleCache=[];
+	var lastFilter = "";
+	
+	var fillTable = function(people){
+
+		    var filter = dwr.util.getValue("filtro");
+			var pattern = new RegExp("(" + filter + ")", "i");
+			var filtered = [];
+			for(i=0; i<people.length; i++ ){
+				if (pattern.test( people[i].name )){
+					filtered.push(people[i]);
+				}
+			}
+			
+			dwr.util.removeAllRows("peopleBody");
+			if(filtered.length == 0){
+				addSingleRow("peopleBody", "No matches");
+			}else{
+				dwr.util.addRows("peopleBody", filtered, [ function(person){
+					return person.name.replace(pattern, "<span class='highlight'>$1</span>");},
+				    function(person){return "$" + person.age; },
+				    function(person){return person.address}
+				    ], {escapeHtml:false});
+			}
+			
+			peopleCache = people;
+	}
+	
+	var filterChanged = function(){
+		var filter = dwr.util.getValue("filtro");
+		if(filter.length == 0){
+			dwr.util.removeAllRows("peopleBody");
+			addSingleRow("peopleBody", "please enter a search filter");
+		}else{
+			if(filter.charAt(0) == lastFilter.charAt(0) ){
+				fillTable(peopleCache);
+			}else{
+				People.getMatchFromLargeCrowd(filter.charAt(0), fillTable );
+			}
+		}
+		lastFilter = filter;
+	}
+	
+	function addSingleRow(id, message){
+		dwr.util.addRows(id, [1], [
+		      function(data){return message;}
+		      ], {
+			cellCreator:function(){
+				var td = document.createElement("td");
+				td.setAttribute("colspan", 3);
+				return td;
+			}
+			
+		});
+	}
+	
+	*/	
+	
+</script>
+<input type="text" id = "minombre">
+<input type="button" name="probar ajax" value="saludo" onclick="saluda()"/>
+<span id="saludo"></span>
+<span id="objeto"></span>
+
+<p>Filtro<input type="text" id = "filtro" onkeyup="filterChanged()"></p>
+
+<table border="1" class="rowed grey">
+<thead>
+	<tr>
+		<td>Pais
+		</td>
+		<td>Codigo</td>
+		<td>Area</td>
+	</tr>
+</thead>
+<tbody id = "peopleBody">
+</tbody>
+</table>
+
+</body>
+</html>

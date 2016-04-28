@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 19/04/2016 04:21:12 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="hbm.Doctores" table="DOCTORES">
+        <id name="email" type="string">
+            <column name="EMAIL" length="50" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="50" />
+        </property>
+        <property name="edad" type="java.lang.Byte">
+            <column name="EDAD" precision="2" scale="0" />
+        </property>
+        <property name="password" type="string">
+            <column name="PASSWORD" length="50" />
+        </property>
+        <property name="sexo" type="string">
+            <column name="SEXO" length="50" />
+        </property>
+        <property name="identificacion" type="string">
+            <column name="IDENTIFICACION" length="50" />
+        </property>
+        <property name="especialidad" type="string">
+            <column name="ESPECIALIDAD" length="50" />
+        </property>
+        <set name="registroses" table="REGISTROS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="EMAIL" length="50" />
+            </key>
+            <one-to-many class="hbm.Registros" />
+        </set>
+    </class>
+</hibernate-mapping>

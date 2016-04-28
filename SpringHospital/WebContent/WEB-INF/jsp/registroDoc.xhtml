@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+     
+    <h:head>
+        <title>Nuevo Registro</title>
+                <style type="text/css">
+            .ui-widget {
+                font-size: 90%;
+            }
+        </style>
+    </h:head>
+     
+    <h:body>
+
+
+	 <p:panel  header="Registro de Doctores" footer="" style="margin-bottom:20px">
+	 <p:tooltip />
+		<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true"	/>
+		<h:form id="registroD">
+		 	<h:panelGrid columns="2" cellpadding="5" >
+		 		<p:outputLabel value="Nombre" for="nombre" />
+		 		<p:inputText placeholder="Nombre"
+					type="text" required="true" name="nombre" id="nombre"
+					 label="Nombre del Doctor" value="#{doctor.doctor.nombre}"/>	
+					
+				<p:outputLabel value="Email" for="email" />
+		 		<p:inputText placeholder="aaaa@aaaa.com"
+					type="email" required="true" name="email" id="email"
+					 label="Email del Doctor" value="#{doctor.doctor.email}" validatorMessage="Ingrese un email válido">
+					  <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+			    </p:inputText>	 	
+					
+				<p:outputLabel value="Password" for="password" />
+		 		<p:password placeholder="Password" type="password" required="true" feedback="true"
+					name="password" id="password" label="Password del Doctor" value="#{doctor.doctor.password}"/>
+					
+				<p:outputLabel value="Edad" for="edad" />
+		 		<p:inputText placeholder="Edad"
+					type="number" name="edad" required="true" id="edad"
+					label="Edad del Doctor" value="#{doctor.doctor.edad}" />	
+				
+				<p:outputLabel for="sexo" value="Sexo: " />
+        		<p:selectOneRadio id="sexo" value="#{doctor.doctor.sexo}" required="true">
+            		<f:selectItem itemLabel="Hombre" itemValue="hombre" />
+            		<f:selectItem itemLabel="Mujer" itemValue="mujer" />
+            	
+        		</p:selectOneRadio>
+        		
+        		<p:outputLabel value="Identificación" for="ife" />
+		 		<p:inputText placeholder="INE"
+					required="true" type="text" name="ife" id="ife" class="form-control" label="ID del Doctor" value="#{doctor.doctor.identificacion}"
+				 />
+					
+				<p:outputLabel value="Especialidad" for="especialidad" />
+		 		<p:inputText required="true" placeholder="Especialidad médica" type="text"
+					name="especialidad" id="especialidad" class="form-control" label="Especialidad del Doctor" value="#{doctor.doctor.especialidad}"/>
+				 
+				 <p:commandButton update="registroD" icon="ui-icon-disk" actionListener="#{doctor.agregar}" value="Guardar" />
+		 	</h:panelGrid>			
+
+			
+			
+		</h:form>
+			
+	</p:panel>
+</h:body>
+</html>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+ "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+
+<struts-config>
+	
+	<data-sources>
+		<data-source type="org.apache.commons.dbcp.BasicDataSource" key="userDB">
+			<set-property value="oracle.jdbc.OracleDriver" property="driverClassName"/>
+			<set-property value="jdbc:oracle:thin:@localhost:1521:XE" property="url"/>
+			<set-property value="HR" property="username"/>
+			<set-property value="hr" property="password"/>
+			
+		</data-source>
+	</data-sources>
+
+	<form-beans>
+		<form-bean name="userRegistrationForm" type="strutsTutorial.UserRegistrationForm" />
+
+		<form-bean name="userRegistrationDynaForm" type="org.apache.struts.action.DynaActionForm">
+
+			<form-property name="userName" type="java.lang.String" />
+			<form-property name="email" type="java.lang.String" />
+			<form-property name="password" type="java.lang.String" />
+			<form-property name="passwordCheck" type="java.lang.String" />
+			<form-property name="firstName" type="java.lang.String" />
+			<form-property name="lastName" type="java.lang.String" />
+			<form-property name="phone" type="java.lang.String"
+				initial="(520) " />
+			<form-property name="fax" type="java.lang.String" />
+			<form-property name="page" type="java.lang.Integer" />
+
+		</form-bean>
+	</form-beans>
+
+	<action-mappings>
+
+		<action path="/userRegistrationDyna" type="strutsTutorial.UserRegistrationAction"
+			name="userRegistrationDynaForm" attribute="user" input="/userRegistrationDyna.jsp">
+			<forward name="success" path="/regSuccess.jsp" />
+			<forward name="failure" path="/regFailure.jsp" />
+		</action>
+		<action path="/userDynaRegForm" forward="/userRegistrationDyna.jsp" />
+
+		<action path="/userRegistration" type="strutsTutorial.UserRegistrationAction"
+			name="userRegistrationForm" input="/userRegistration.jsp">
+			<forward name="success" path="/regSuccess.jsp" />
+			<forward name="failure" path="/regFailure.jsp" />
+		</action>
+
+		<action path="/userRegistrationMultiPage" type="strutsActions.UserRegistrationMultiAction"
+			name="userRegistrationForm" attribute="user" parameter="action"
+			input="/userRegistrationAction.jsp">
+		</action>
+
+
+		<!-- Tiles -->
+		<action path="/welcome"
+			type="strutsTutorial.WelcomeAction">
+			<forward name="showWelcome" path="page.welcome" />
+		</action>
+		<action path="/bookList"
+			type="strutsTutorial.BookListAction">
+			<forward name="showBookList" path="page.booklist" />
+		</action>
+		<action path="/navigation"
+			type="strutsTutorial.NavigationAction">
+			<forward name="showNavigation" path="/jsp/navigation.jsp" />
+		</action>
+		<action path="/userForm"
+			type="strutsTutorial.UserRegistrationAction">
+			<forward name="showNavigation" path="../userRegistrationDyna.jsp" />
+		</action>
+		<!-- fin tiles -->
+
+	</action-mappings>
+
+	<message-resources parameter="application"></message-resources>
+
+	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+		<set-property property="pathnames"
+			value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml" />
+	</plug-in>
+
+	<plug-in className="org.apache.struts.tiles.TilesPlugin">
+		<set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml" />
+		<set-property property="moduleAware" value="true" />
+		<set-property property="definitions-parser-validate"
+			value="true" />
+	</plug-in>
+</struts-config>

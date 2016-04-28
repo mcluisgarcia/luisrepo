@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Suma de numeros</title>
+</head>
+<body>
+
+<h1>Suma de numeros</h1>
+<h:form>
+	<h:messages/>
+	<h:inputText value="#{suma.a}" required="true" label= "Num a" ></h:inputText>
+	<br></br>
+	<h:inputText value="#{suma.b}" required="true" label= "Num b" ></h:inputText>
+	<br></br>
+	<h:commandButton action="envarA" value="enviar"></h:commandButton>
+</h:form>
+
+<h:outputText value="el resultado es : #{suma.total}"></h:outputText>
+</body>
+</html>

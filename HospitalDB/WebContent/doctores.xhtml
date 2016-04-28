@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Bienvenido </title>
+    
+</h:head>
+
+
+
+<h:body>
+
+
+<div class="container">
+		<div class="row col-xs-12" >
+			<div class="jumbotron" style=" background-repeat:no-repeat; background-image: url(#{resource['default/img/downloads-bg.jpg']}); background-position: center; background-size:cover; padding: 10% ">						
+											
+			</div>
+		</div>
+		<div>
+			<h1>				
+				<h:graphicImage style="width: 10%; height: 10%" library="default" name="img/3d_medical_symbol_new__clear_background__by_benbobby-d58szba.png" />
+				<!-- <h:outputText value="#{login.msg}" ></h:outputText> -->
+				<h:outputText value="#{formDoc.message.getDetail()}" ></h:outputText>
+			</h1>
+			
+		</div>
+		<p:separator/>
+		<h2 align="center">
+			<p:outputLabel value="Registro de Semanas"/>
+		</h2>	
+		
+		<h:panelGrid columns="2" cellpadding="10">
+			<p:outputLabel for="semana" value="Numero de Semana:" />
+	        <p:selectOneMenu id="semana" value="#{registro.numSemana}" style="width:125px">
+	            <f:selectItem itemLabel="Seleccione una semana" itemValue="" />
+            	<f:selectItems value="#{registro.semanas}" />
+	        </p:selectOneMenu>
+ 		</h:panelGrid>
+ 
+		
+		 <h:form >   
+    		<p:dataTable var="d" value="#{registro.diaSem}" rowIndexVar="index">
+			    
+			    <p:column headerText="Dia">			  
+			    	<p:selectOneRadio  value="#{registro.today}" >
+			    		<f:selectItem itemLabel="#{d}" itemValue="#{d}"/>
+			    		<f:viewParam name="index" value="#{registro.index}" />
+			    		<p:ajax listener="#{registro.addDiaSel}" />
+			    	</p:selectOneRadio>
+			    </p:column>
+			 
+			    <p:column headerText="Hora inicio">
+			    	<p:calendar  showButtonPanel="true" timeOnly="true" locale="es" value="#{registro.h}" pattern="HH:mm:ss">
+			    	 <p:ajax event="dateSelect" rendered = "false" listener="#{registro.onDateSelect}"  />
+			    	</p:calendar> 
+			    </p:column>
+			 
+			    <p:column headerText="Hora fin">
+			        <p:calendar showButtonPanel="true" timeOnly="true" locale="es" value="#{registro.hf}" pattern="HH:mm:ss" />
+			    </p:column>
+			 	
+			</p:dataTable>
+			</h:form>
+			<p:commandButton value="Registrar" icon="ui-icon-check" />
+			
+			 <p:dataTable id="checkboxDT" var="hor" value="#{registro.listaHorarios}" selection="#{registro.selectedHorario}" rowKey="#{hor.dia}" style="margin-bottom:0">
+		        <f:facet name="header">
+		            Checkbox
+		        </f:facet>
+		        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>		        
+		        <p:column headerText="dia">
+		            <h:outputText value="#{hor.dia}" />
+		        </p:column>
+		        
+		        <p:column headerText="Hora inicio">
+			    	<p:calendar  showButtonPanel="true" timeOnly="true" locale="es" value="#{hor.fechaInicio}" pattern="HH:mm:ss">
+			    	 <p:ajax event="dateSelect" rendered = "false" listener="#{registro.onDateSelect}"  />
+			    	</p:calendar> 
+			    </p:column>
+			    
+			    <p:column headerText="Hora fin">
+			    	<p:calendar  showButtonPanel="true" timeOnly="true" locale="es" value="#{hor.fechaFin}" pattern="HH:mm:ss">
+			    	 <p:ajax event="dateSelect" rendered = "false" listener="#{registro.onDateSelect}"  />
+			    	</p:calendar> 
+			    </p:column>
+			    
+		       
+		        <f:facet name="footer">
+		            <!-- <p:commandButton process="checkboxDT" update=":form:multiCarDetail" icon="ui-icon-search" value="View" oncomplete="PF('multiCarDialog').show()" /> -->
+		        </f:facet>
+		    </p:dataTable>
+</div>
+</h:body>
+</html>

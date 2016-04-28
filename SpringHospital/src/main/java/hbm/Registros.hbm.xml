@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 19/04/2016 04:21:12 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="hbm.Registros" table="REGISTROS">
+        <id name="id" type="string">
+            <column name="ID" length="20" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="doctores" class="hbm.Doctores" fetch="select">
+            <column name="EMAIL" length="50" />
+        </many-to-one>
+        <property name="fechainicio" type="string">
+            <column name="FECHAINICIO" length="50" />
+        </property>
+        <property name="fechafin" type="string">
+            <column name="FECHAFIN" length="50" />
+        </property>
+        <property name="fecharegistro" type="string">
+            <column name="FECHAREGISTRO" length="50" />
+        </property>
+        <property name="semana" type="java.lang.Byte">
+            <column name="SEMANA" precision="2" scale="0" />
+        </property>
+        <property name="dia" type="string">
+            <column name="DIA" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>

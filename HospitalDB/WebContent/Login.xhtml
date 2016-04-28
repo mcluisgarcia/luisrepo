@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"	
+	>
+
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Login </title>    
+    
+</h:head>
+
+
+
+<h:body style="padding-right:10%; padding-bottom:10%; padding-left:10%">
+  <h:panelGrid columns="2" cellpadding="10">
+	<p:themeSwitcher style="width:165px" id="advanced" effect="fade" var="t">
+ 		<f:selectItem itemLabel="Seleccione un Tema" itemValue="" />
+ 		<f:selectItems value="#{tema.themes}" />
+ 		<p:column>
+                <h:outputText styleClass="ui-theme ui-theme-" style="display-block" />
+        </p:column>
+        <p:column>
+                 
+        </p:column>
+	</p:themeSwitcher>
+ </h:panelGrid>
+	
+	<div class="ui-grid ui-grid-responsive">
+		<div class="ui-grid-row ui-grid-col-12" >
+			<div style=" width:80%; background-repeat:no-repeat; background-image: url(#{resource['default/img/downloads-bg.jpg']}); background-position: center; background-size:cover; padding: 10%; ">
+								
+			</div>
+		</div>
+       <p:separator />
+       
+		<div class="ui-fluid ui-grid-row">
+			<div class="ui-grid-col-5">
+				<p:panel header="Login" footer="" style="margin-bottom:20px" >				    
+				     <h:panelGrid columns="2" cellpadding="10" layout="grid" styleClass="ui-panelgrid-blank" >
+					
+						<h:form id="login" >
+							<h:panelGrid columns="2" cellpadding="5"  layout="grid" styleClass="ui-panelgrid-blank">
+							
+								<p:outputLabel for="email" value="Email" />
+								<p:inputText value="#{login.login.email}" validatorMessage="Ingrese un email válido" 
+									required="true" type="email" id="email" 
+										placeholder="Email" name="email" label="Email" >
+										<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+								</p:inputText>
+										
+								<p:outputLabel for="password" value="Password" />
+								<p:password id="password" value="#{login.login.password}" required="true" type="password"  
+										placeholder="Password" name="password" label="Password" feedback="true" />						
+							    
+							    								
+								<p:commandButton form="login" update="login" id="enviar" value="Enviar" icon="ui-icon-check" actionListener="#{login.doLogin}"  />
+								<h:form >
+								    <p:commandButton immediate="true"  value="Registrar" icon="ui-icon-disk" actionListener="#{formDoc.registrarDoc}" >
+										 <p:ajax event="dialogReturn" listener="#{formDoc.onClickRegistra}"/>
+									</p:commandButton>
+								</h:form>	
+							</h:panelGrid>
+						</h:form>
+						
+					</h:panelGrid>
+					
+				</p:panel>
+							
+			</div>
+			<div class="ui-grid-col-7">
+					<h1 align="center">Zona restringida</h1>					
+					<p:tooltip />
+					<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true"	/>					
+					<h:graphicImage style="align:center" library="default" name="img/jumbotronbackground.jpg" />					
+			</div>
+		</div>
+	</div>
+
+	
+
+</h:body>
+</html>

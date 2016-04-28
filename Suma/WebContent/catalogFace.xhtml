@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui" >
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Catalogo de productos</title>
+</h:head>
+<h:body>
+	
+	
+	<p:dataTable value="#{catalog.products}" var="p" border="1" cellpadding="10" cellspacing="10">
+		<p:column headerText="Id">									
+				<h:outputText value="#{p.id}" />
+		</p:column>
+		<p:column headerText="Name">			
+			<h:form>
+				<h:commandLink action="detail">
+					<f:actionListener type="products.OnDetailActionListener"/>
+					<h:outputText value="#{p.name}" />
+				</h:commandLink>
+			</h:form>
+		</p:column>
+		<p:column headerText="Price">			
+			<h:outputText value="#{p.price}" />
+		</p:column>
+	</p:dataTable>
+	
+</h:body>
+</html>

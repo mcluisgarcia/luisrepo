@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE form-validation PUBLIC
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.3.0//EN"
+    "http://jakarta.apache.org/commons/dtds/validator_1_3_0.dtd">
+
+<form-validation>
+
+	<global>
+		<!-- An example global constant <constant> <constant-name>postalCode</constant-name> 
+			<constant-value>^\d{5}\d*$</constant-value> </constant> end example -->
+		<constant>
+			<constant-name>userNameMask</constant-name>
+			<constant-value>
+				^[a-zA-Z]{1}[a-zA-Z0-9_]*$
+			</constant-value>
+		</constant>
+	</global>
+	<formset>
+
+		<constant>
+			<constant-name>countryCode</constant-name>
+			<constant-value>[0-9]?</constant-value>
+		</constant>
+		<constant>
+			<constant-name>areaCode</constant-name>
+			<constant-value>
+				[ |(]*[0-9]{3}[ |)]*
+			</constant-value>
+		</constant>
+		<constant>
+			<constant-name>phone</constant-name>
+			<constant-value>
+				[0-9]{3}[-| ]*[0-9]{4}
+			</constant-value>
+		</constant>
+		<form name="userRegistrationForm">
+			<field property="userName" depends="required,minlength,maxlength,mask">
+				<msg name="mask" key="userRegistration.userNameMask" />
+				<arg position="0" key="userRegistration.userName" />
+				<arg position="1" key="${var:maxlength}" name="maxlength"
+					resource="false" />
+				<arg position="1" key="${var:minlength}" name="minlength"
+					resource="false" />
+				<var>
+					<var-name>minlength</var-name>
+					<var-value>5</var-value>
+				</var>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>11</var-value>
+				</var>
+				<var>
+					<var-name>mask</var-name>
+					<var-value>${userNameMask}</var-value>
+				</var>
+			</field>
+			<field property="email" depends="required,email">
+				<arg position="0" key="userRegistration.email" />
+			</field>
+			<field property="firstName" depends="required">
+				<arg position="0" key="userRegistration.firstName" />
+			</field>
+			<field property="lastName" depends="required">
+				<arg position="0" key="userRegistration.lastName" />
+			</field>
+			<field property="passwordCheck" depends="required">
+				<arg position="0" key="Password Check" resource="false" />
+			</field>
+			<field property="password" depends="validwhen">
+				<arg position="0" key="userRegistration.password" />
+				<var>
+					<var-name>test</var-name>
+					<var-value>(password == passwordCheck )</var-value>
+				</var>
+			</field>
+			<field property="phone" depends="mask">
+				<arg position="0" key="userRegistration.phone" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>
+						${countryCode}${areaCode}${phone}
+					</var-value>
+				</var>
+			</field>
+			<field property="fax" depends="mask">
+				<arg position="0" key="userRegistration.fax" />
+				<var>
+					<var-name>mask</var-name>
+					<var-value>
+						${countryCode}${areaCode}${phone}
+					</var-value>
+				</var>
+			</field>
+			<!-- <form name="userRegistrationForm"> <field property="firstName" depends="required,minlength,maxlength,match"> 
+				<arg position="0" key="userRegistration.firstName" /> <arg key="${var:maxlength}" 
+				name="maxlength" resource="false" /> <arg key="${var:minlength}" name="minlength" 
+				resource="false" /> <var> <var-name>minlength</var-name> <var-value>5</var-value> 
+				</var> <var> <var-name>maxlength</var-name> <var-value>11</var-value> </var> 
+				</field> </form> -->
+		</form>
+	</formset>
+</form-validation>

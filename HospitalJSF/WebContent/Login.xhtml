@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	>
+
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Login </title>
+    <h:outputStylesheet library="default" name="css/bootstrap.min.css"/>
+    <h:outputStylesheet library="default" name="css/jquery-ui.min.css" />
+    <h:outputStylesheet library="default" name="css/jquery-ui.theme.css" />
+    <h:outputStylesheet library="default" name="css/jquery-ui.structure.css" />
+    <h:outputStylesheet library="default" name="css/bootstrap.min.css" />
+    <h:outputScript library="default" name="js/jquery.js"/>
+    <h:outputScript library="default" name="js/jquery-ui.min.js"/>
+    <h:outputScript library="default" name="js/bootstrap.min.js"/>
+    <h:outputScript library="default" name="js/login.js"/>
+</h:head>
+
+
+
+<h:body>
+
+	<div class="container">
+		<div class="row col-xs-12" >
+			<div class="jumbotron" style="background-repeat:no-repeat; background-image: url(#{resource['default/img/downloads-bg.jpg']}); background-position: center; background-size:cover; padding: 10% ">
+								
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 col-md-5">
+				<div class="panel panel-default">
+				    <div class="panel-heading">
+				    	<h4>Login</h4>    	
+				    	
+				    </div>
+					
+					<h:form class="panel-body" method="get" name="formulario" action="Login.xhtml" >
+						
+						<div class="form-group">
+							<label for="email">Email address</label> 
+							<div class="input-group">
+								<div class="input-group-addon">
+									<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+							    </div>
+								<h:inputText value="#{login.email}" validatorMessage="Ingrese un email válido" required="true" type="email" class="form-control" id="email" placeholder="Email" name="email" label="Email" >
+										<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+								</h:inputText>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="password">Password</label>
+							<div class="input-group">
+								<div class="input-group-addon">
+									<span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+							    </div>
+								<h:inputSecret value="#{login.password}" required="true" type="password" class="form-control" id="password"
+									placeholder="Password" name="password" label="Password">
+								</h:inputSecret>
+							</div>
+						</div>
+						<div class="from-group">
+							<a id="registro" class="btn btn-default" href="#" role="button">Registro</a>
+							<h:commandButton action="enviarA" value="Enviar" class="btn btn-default">
+							</h:commandButton>
+						</div>
+					</h:form>
+					
+				</div>
+							
+			</div>
+			<div class="col-xs-12 col-md-7">
+					<h1 align="center">Zona restringida</h1>
+					<div >
+						<h:messages errorClass="alert alert-danger" warnClass="alert alert-warning" role="alert"/>
+					</div>
+					<div >
+						<h:graphicImage library="default" name="img/jumbotronbackground.jpg" />
+					</div>
+				</div>
+		</div>
+	</div>
+
+	<div id="dialog-form" title="Registro de Doctores">
+
+		<h:form class="panel-body" id="regDoc" name="formulario2">
+			
+			<div class="form-group">
+				<label for="nameD">Nombre</label> 
+				<h:inputText placeholder="Nombre"
+					type="text" required="true" name="nombreD" id="nombreD"
+					class="form-control" label="Nombre del Doctor" value="#{doctor.nombre}">
+				</h:inputText>
+				
+			</div>
+			
+			<div class="form-group">
+				<label for="emailD">Email</label> 
+				<h:inputText placeholder="aaaa@aaaa.com"
+					type="email" required="true" name="emailD" id="emailD"
+					class="form-control" label="Email del Doctor" value="#{doctor.email}">
+				</h:inputText>	
+			</div>
+			
+			<div class="form-group">
+				<label for="passwordD">Password</label> 
+				<h:inputText placeholder="Password" type="password" required="true"
+					name="passwordD" id="passwordD" class="form-control" label="Password del Doctor" value="#{doctor.password}">
+				</h:inputText>
+			</div>
+			<div class="form-group">
+				<label for="edad">Edad</label> 
+				<h:inputText placeholder="Edad"
+					type="number" name="edad" required="true" id="edad"
+					class="form-control" label="Edad del Doctor" value="#{doctor.edad}">
+				</h:inputText>
+			</div>
+			<div class="form-group">
+				<label for="sexo">Sexo</label>
+				<h:selectOneRadio name="sexo" id="sexo" label="Sexo del Doctor" required="true" value="#{doctor.sexo}">
+					<f:selectItem itemValue="hombre" itemLabel="Hombre" class="btn btn-default"/>
+   					<f:selectItem itemValue="mujer" itemLabel="Mujer" class="btn btn-default"/> 
+				</h:selectOneRadio>
+				
+			</div>
+			<div class="form-group">
+				<label for="ife">Identificación</label> 
+				<h:inputText placeholder="INE"
+					required="true" type="text" name="ife" id="ife" class="form-control" label="ID del Doctor" value="#{doctor.identificacion}">
+				</h:inputText>	
+			</div>
+			<div class="form-group">
+				<label for="especialidad">Especialidad</label> 
+				<h:inputText required="true" placeholder="Especialidad médica" type="text"
+					name="especialidad" id="especialidad" class="form-control" label="Especialidad del Doctor" value="#{doctor.especialidad}">
+				</h:inputText>
+			</div>
+
+			<!-- Allow form submission with keyboard without duplicating the dialog button -->
+			 <h:commandButton action="registrar" name="add" id="agregarDr" 
+				tabindex="-1" style="position: absolute; top: -1000px"></h:commandButton>
+				
+			<!-- <h:commandButton action="registrar" name="add" id="agregarDr" 
+			 value="#">			 	
+			 </h:commandButton>-->
+		</h:form>
+	</div>
+
+</h:body>
+</html>
