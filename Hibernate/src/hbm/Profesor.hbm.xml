@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 19/04/2016 04:15:16 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="hbm.Profesor" table="PROFESOR">
+        <id name="id" type="int">
+            <column name="ID" precision="5" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="curso" class="hbm.Curso" fetch="select">
+            <column name="ID_CURSO" precision="5" scale="0" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

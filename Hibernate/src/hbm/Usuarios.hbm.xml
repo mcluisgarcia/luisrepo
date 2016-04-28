@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 19/04/2016 04:15:16 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="hbm.Usuarios" table="USUARIOS">
+        <id name="email" type="string">
+            <column name="EMAIL" length="80" />
+            <generator class="assigned" />
+        </id>
+        <property name="firstName" type="string">
+            <column name="FIRST_NAME" length="80" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="LAST_NAME" length="80" />
+        </property>
+        <property name="password" type="string">
+            <column name="PASSWORD" length="11" />
+        </property>
+        <property name="phone" type="string">
+            <column name="PHONE" length="11" />
+        </property>
+        <property name="fax" type="string">
+            <column name="FAX" length="11" />
+        </property>
+    </class>
+</hibernate-mapping>
